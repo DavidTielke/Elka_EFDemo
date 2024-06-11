@@ -9,15 +9,30 @@ namespace EFDemo1
     {
         static void Main(string[] args)
         {
-            // IEnumerable: Where, OrderBy, ...
-            // IQueryable: Where, OrderBy,...
+            var persons = Database.Context.Set<Person>().OrderBy(p => p.Name);
 
-            var query = Database.Context.Set<Person>().Take(2);
+            var erste = persons.First();
+            var letzte = persons.Last();
+            var zweite = new Person();
+            Database.Context.Set<Person>().Add(zweite);
+            Database.Context.Set<Person>().Remove(letzte);
 
-            // Executing Functions: ToList(), First(), Last(), Single(), Any(), All(), Max(), Min(), Avg()
-            var persons = query.ToList();
 
-            //persons = persons.Take(2).ToList();
+            erste.Name = "Foo";
+            Console.WriteLine(Database.Context.Entry(erste).State);
+            Console.WriteLine(Database.Context.Entry(zweite).State);
+            Console.WriteLine(Database.Context.Entry(letzte).State);
+
+            Database.Context.Entry(letzte).State = EntityState.Detached;
+            Console.WriteLine(Database.Context.Entry(letzte).State);
+            letzte.Name = "Bar";
+            Console.WriteLine(Database.Context.Entry(letzte).State);
+            Database.Context.Attach(letzte);
+            Console.WriteLine(Database.Context.Entry(letzte).State);
+            Database.Context.Entry(letzte).DetectChanges();
+            Console.WriteLine(Database.Context.Entry(letzte).State);
+
+
 
             foreach (var person in persons)
             {
