@@ -19,8 +19,6 @@ namespace EFDemo1.Data.Mappings
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Name).HasColumnName("Name").IsRequired();
-
-            builder.HasMany(t => t.Persons).WithMany(p => p.Tags);
         }
     }
 }

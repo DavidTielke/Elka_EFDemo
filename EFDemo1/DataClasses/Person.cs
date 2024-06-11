@@ -12,5 +12,5 @@ public class Person
 
     public int FK_CategoryId { get; set; }
     public virtual Category Category { get; set; }
-    public virtual IList<Tag> Tags { get; set; }
+    public virtual IList<PersonTag> PersonTags { get; set; }
 }
