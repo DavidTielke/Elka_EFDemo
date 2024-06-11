@@ -12,7 +12,7 @@ internal class PeopleContext : DbContext
 
         optionsBuilder.UseSqlServer(
             "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PeopleDB;Integrated Security=True");
-        optionsBuilder.UseLazyLoadingProxies();
+        //optionsBuilder.UseLazyLoadingProxies();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

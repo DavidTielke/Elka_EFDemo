@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using EFDemo1.Data;
 using EFDemo1.DataClasses;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFDemo1
 {
@@ -8,15 +9,31 @@ namespace EFDemo1
     {
         static void Main(string[] args)
         {
-            var database = new PeopleContext();
+            // IEnumerable: Where, OrderBy, ...
+            // IQueryable: Where, OrderBy,...
 
-            var people = database.Set<Person>().ToList();
+            var query = Database.Context.Set<Person>().Take(2);
 
-            foreach (var person in people)
+            // Executing Functions: ToList(), First(), Last(), Single(), Any(), All(), Max(), Min(), Avg()
+            var persons = query.ToList();
+
+            //persons = persons.Take(2).ToList();
+
+            foreach (var person in persons)
             {
-                var tags = string.Join(",", person.PersonTags.Select(pt => pt.Tag.Name));
-                Console.WriteLine($"{person.Id} - {person.Name} - {person.Age} - {person.Category.Name} - {tags}");
+                var tags = string.Join(",", person.PersonTags.Select(pt => pt.Tag));
+                Console.WriteLine($"{person.Name} - {person.Age} - {person.Category.Name} - {tags}");
             }
+        }
+    }
+
+    static class Database
+    {
+        public static DbContext Context { get; set; }
+
+        static Database()
+        {
+            Context = new PeopleContext();
         }
     }
 }
