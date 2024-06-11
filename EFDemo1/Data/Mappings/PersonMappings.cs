@@ -22,16 +22,3 @@ class PersonMappings : IEntityTypeConfiguration<Person>
         builder.HasOne(p => p.Category).WithMany(c => c.Persons).HasForeignKey(p => p.FK_CategoryId);
     }
 }
-
-class CategoryMappings : IEntityTypeConfiguration<Category>
-{
-    public void Configure(EntityTypeBuilder<Category> builder)
-    {
-        builder.ToTable("Categories");
-
-        builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
-        builder.HasKey(c => c.Id);
-
-        builder.Property(c => c.Name).HasColumnName("Name").IsRequired();
-    }
-}

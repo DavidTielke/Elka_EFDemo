@@ -1,4 +1,6 @@
-﻿namespace EFDemo1.DataClasses;
+﻿using EFDemo1.Data.Mappings;
+
+namespace EFDemo1.DataClasses;
 
 public class Person
 {
@@ -10,11 +12,5 @@ public class Person
 
     public int FK_CategoryId { get; set; }
     public virtual Category Category { get; set; }
-}
-
-public class Category
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public virtual IEnumerable<Person> Persons { get; set; }
+    public virtual IList<Tag> Tags { get; set; }
 }
